@@ -1,0 +1,17 @@
+<nz-collapse [nzBordered]="false">
+  <nz-collapse-panel [nzHeader]="'FILTER' | translate" [nzActive]="false">
+    <div class="row mb-8 flex justify-between items-center">
+      <form nz-form [nzLayout]="'inline'" [formGroup]="filterForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-input-group>
+            <nz-form-label nzFor="quantity">{{ 'ORDER_DATE' | translate }}</nz-form-label>
+            <nz-form-control>
+              <input id="quantity" formControlName="quantity" nz-input [placeholder]="'ORDER_DATE' | translate" />
+            </nz-form-control>
+          </nz-input-group>
+        </nz-form-item>
+      </form>
+      <app-command [commands]="commands"></app-command>
+    </div>
+  </nz-collapse-panel>
+</nz-collapse>

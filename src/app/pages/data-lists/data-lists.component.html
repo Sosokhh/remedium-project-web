@@ -1,0 +1,5 @@
+<nz-card nzTitle="ნავიგცია" class="text-center">
+  @for (route of routes; track $index) {
+    <div [routerLink]="[route.path]" nz-card-grid [ngStyle]="gridStyle">{{ route.title }}</div>
+  }
+</nz-card>

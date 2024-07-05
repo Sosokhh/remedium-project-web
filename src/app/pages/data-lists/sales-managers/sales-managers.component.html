@@ -1,0 +1,56 @@
+<div class="workspace-header">
+  <h1 class="headline">{{ 'SALES_MANAGERS' | translate }}</h1>
+  <app-command [commands]="commands"></app-command>
+</div>
+
+<hr class="my-4" />
+
+@if (salesManagersData()) {
+
+  <app-filter-sales-managers (filter)="onFilter($event)"></app-filter-sales-managers>
+
+  <nz-table
+    #containersTable
+    class="mt-4"
+    nzSize="middle"
+    nzBordered
+    [nzData]="salesManagersData().data"
+    [nzFrontPagination]="false"
+    [nzLoading]="tableLoading"
+    [nzTotal]="salesManagersData().meta.totalItems"
+    [nzPageSize]="tableFilterModel().limit"
+    [nzPageIndex]="tableFilterModel().page"
+    (nzQueryParams)="onTableParamsChange($event)"
+  >
+    <thead>
+    <tr>
+      <th>{{ 'USERNAME' | translate }}</th>
+      <th>{{ 'FIRST_NAME' | translate }}</th>
+      <th>{{ 'LAST_NAME' | translate }}</th>
+      <th>{{ 'CREATED_AT' | translate }}</th>
+      <th>{{ 'ORDERS_TOTAL_AMOUNT' | translate }}</th>
+      <th class="actions-head">&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (data of containersTable.data; track data.id) {
+        <tr>
+          <td>{{ data.username }}</td>
+          <td>{{ data.firstName }}</td>
+          <td>{{ data.lastName }}</td>
+          <td>{{ data.created_at | date:'dd/MM/yyyy' }}</td>
+          <td>{{ data.orders | getFullPrice }}</td>
+          <td class="actions-cell">
+            <app-command
+              [context]="data"
+              [tableCommands]="tableCommands"
+              [commandPlaceHolder]="commandPlaceHolders.Table"
+            ></app-command>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+}@else {
+  <h3>{{ 'NO_DATA' | translate }}</h3>
+}

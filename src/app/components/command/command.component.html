@@ -1,0 +1,45 @@
+@switch (commandPlaceHolder()) { @case (commandPlaceHolders.Toolbar) {
+<div class="flex gap-2">
+  @for (command of commands(); track index; let index = $index) { @if (visables()[index]) { @if (command.isLink) {
+  <button
+    [routerLink]="[command.routerLink]"
+    nz-button
+    [nzType]="command.iconButtonType ?? 'default'"
+    nz-tooltip
+    [nzTooltipPlacement]="command.tooltipPlacement ?? 'bottomLeft'"
+    [nzTooltipTitle]="command.tooltipTitle ?? ''"
+  >
+    <span nz-icon [nzType]="command.icon" nzTheme="outline"></span>
+  </button>
+  }@else {
+  <button
+    (click)="command.action()"
+    nz-button
+    [nzType]="command.iconButtonType ?? 'default'"
+    nz-tooltip
+    [nzTooltipPlacement]="command.tooltipPlacement ?? 'bottomLeft'"
+    [nzTooltipTitle]="command.tooltipTitle ?? ''"
+  >
+    <span nz-icon [nzType]="command.icon" nzTheme="outline"></span>
+  </button>
+  } } }
+</div>
+
+} @case (commandPlaceHolders.Table) {
+
+<button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzPlacement="bottomRight">
+  <span nz-icon nzType="ellipsis"></span>
+</button>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    @for (tableCommand of tableCommands(); track index; let index = $index) { @if (visables()[index]) { @if (!tableCommand.isLink)
+    {
+    <li (click)="tableCommand.action(context())" nz-menu-item>
+      <span nz-icon [nzType]="tableCommand.icon" class="mr-2"></span>
+      {{ tableCommand.tooltipTitle  }}
+    </li>
+    } } }
+  </ul>
+</nz-dropdown-menu>
+} }

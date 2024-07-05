@@ -1,0 +1,57 @@
+<nz-layout class="apps-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a [routerLink]="['main']">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
+        <h1>Remedium System</h1>
+      </a>
+    </div>
+    <div class="main-actions">
+      <ul class="flex" [ngClass]="isCollapsed ? 'flex-col gap-4' : 'flex-row gap-8'">
+        <li [routerLink]="['management', 'profile']" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="პროფილი">
+          <span nz-icon nzType="user" nzTheme="outline"></span>
+        </li>
+      </ul>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed" class="navigation-container">
+      <li nz-submenu nzOpen [nzTitle]="'DATA_LISTS' | translate" nzIcon="table">
+        <ul>
+          @for (routeModel of dataListsRoutes; track $index) {
+            <li nz-menu-item nzMatchRouter>
+              <a [routerLink]="[routeModel.path]">{{ routeModel.title }}</a>
+            </li>
+          }
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+        </span>
+        <span class="header-trigger mr-2 items-center gap-5">
+          <nz-select class="translate-select" [ngModel]="selectedLang" (ngModelChange)="handleChange($event)">
+              <nz-option nzValue="en" nzLabel="English"></nz-option>
+              <nz-option nzValue="ka" nzLabel="ქართული"></nz-option>
+          </nz-select>
+          <span (click)="logout()"
+            nz-icon
+            nzTheme="outline"
+            nzType="logout"
+            nz-tooltip
+            nzTooltipPlacement="bottomLeft"
+            [nzTooltipTitle]="'LOGOUT' | translate"
+          ></span>
+        </span>
+      </div>
+    </nz-header>
+    <nz-breadcrumb [nzAutoGenerate]="true"></nz-breadcrumb>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

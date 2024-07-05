@@ -1,0 +1,46 @@
+
+<nz-select class="translate-select" [ngModel]="selectedLang" (ngModelChange)="handleChange($event)">
+  <nz-option nzValue="en" nzLabel="English"></nz-option>
+  <nz-option nzValue="ka" nzLabel="ქართული"></nz-option>
+</nz-select>
+
+  <app-card [fullPage]="true">
+    <h3>{{ 'AUTHORIZATION' | translate }}</h3>
+    <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitLoginForm()">
+      <nz-form-item class="mt-4">
+        <nz-form-control nzHasFeedback>
+          <nz-input-group nzPrefixIcon="user">
+            <input id="username" type="text" nz-input formControlName="username" [placeholder]="'LOGIN_USER' | translate" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzHasFeedback>
+          <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+            <input
+              id="password"
+              [type]="passwordVisible() ? 'text' : 'password'"
+              nz-input
+              formControlName="password"
+              [placeholder]="'PASSWORD' | translate"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <button nz-button class="login-form-button login-form-margin mt-6" [nzType]="'primary'" [disabled]="loginForm.invalid">
+        {{ 'LOGIN' | translate }}
+      </button>
+    </form>
+  </app-card>
+
+<ng-template #suffixTemplate>
+  <span
+    class="cursor-pointer"
+    nz-icon
+    [nzType]="passwordVisible() ? 'eye-invisible' : 'eye'"
+    (click)="passwordVisible.set(!passwordVisible())"
+    nzTheme="outline"
+  ></span>
+</ng-template>

@@ -1,0 +1,17 @@
+<div class="text">
+  <h1>404</h1>
+  <h2>უუპს...</h2>
+  <h3>სამწუხაროდ, ასეთი გვერდი ვერ მოიძებნა🕵🏽</h3>
+</div>
+<nz-button-group nzSize="large">
+  <button nz-button (click)="goBack()">
+    <span nz-icon nzType="left"></span>
+    უკან
+  </button>
+  <button nz-button (click)="goHome()">
+    <span nz-icon nzType="home"></span>
+    მთავარი გვერდი
+  </button>
+</nz-button-group>
+
+<div class="torch" [ngStyle]="{ 'top.px': top, 'left.px': left }"></div>

@@ -1,0 +1,46 @@
+<div class="workspace-header">
+  <h1 class="headline">{{ 'SALES_MANAGER_ORDERS' | translate }}</h1>
+</div>
+
+<hr class="my-4" />
+
+<app-filter-sales-manager-orders (filter)="onFilter($event)" ></app-filter-sales-manager-orders>
+
+
+@if (salesManagerOrdersData()) {
+
+  <nz-table
+    #salesManagerOrderData
+    class="mt-4"
+    nzSize="middle"
+    nzBordered
+    [nzData]="salesManagerOrdersData().data"
+    [nzFrontPagination]="false"
+    [nzLoading]="tableLoading"
+    [nzTotal]="salesManagerOrdersData().meta.totalItems"
+    [nzPageSize]="tableFilterModel().limit"
+    [nzPageIndex]="tableFilterModel().page"
+    (nzQueryParams)="onTableParamsChange($event)"
+  >
+    <thead>
+    <tr>
+      <th>{{ 'NAME' | translate }}</th>
+      <th>{{ 'PRICE' | translate }}</th>
+      <th>{{ 'ORDER_QUANTITY' | translate }}</th>
+      <th>{{ 'ORDER_DATE' | translate }}</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (data of salesManagerOrderData.data; track data.id) {
+        <tr>
+          <td>{{ data.product.name }}</td>
+          <td>{{ data.product.price }}</td>
+          <td>{{ data.quantity }}</td>
+          <td>{{ data.created_at | date:'dd/MM/yyyy' }}</td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+}@else {
+  <h3>{{ 'NO_DATA' | translate }}</h3>
+}

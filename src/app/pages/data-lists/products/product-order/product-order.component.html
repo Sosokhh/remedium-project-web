@@ -1,0 +1,21 @@
+<div class="workspace-header">
+  <h1 class="headline">{{ 'SELL_PRODUCT' | translate }}</h1>
+  <div class="actions-container">
+    <button (click)="submitForm()" nz-button nzType="primary" [disabled]="orderForm.invalid">{{ 'SELL' | translate }}</button>
+  </div>
+</div>
+
+<hr class="my-4" />
+
+<app-card>
+  <form class="min-w-[32rem]" nz-form [formGroup]="orderForm" (ngSubmit)="submitForm()">
+    <div class="grid grid-cols-1">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">{{ 'QUANTITY' | translate }}</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzHasFeedback>
+          <input id="quantity" nz-input formControlName="quantity" [placeholder]="'QUANTITY' | translate" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+</app-card>

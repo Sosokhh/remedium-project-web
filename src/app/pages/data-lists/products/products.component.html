@@ -1,0 +1,52 @@
+<div class="workspace-header">
+  <h1 class="headline">{{ 'PRODUCT_LIST' | translate }}</h1>
+  <app-command [commands]="commands"></app-command>
+</div>
+
+<hr class="my-4" />
+
+@if (productsData()) {
+
+  <app-filter-products (filter)="onFilter($event)"></app-filter-products>
+
+  <nz-table
+    #productsTable
+    class="mt-4"
+    nzSize="middle"
+    nzBordered
+    [nzData]="productsData().data"
+    [nzFrontPagination]="false"
+    [nzLoading]="tableLoading"
+    [nzTotal]="productsData().meta.totalItems"
+    [nzPageSize]="tableFilterModel().limit"
+    [nzPageIndex]="tableFilterModel().page"
+    (nzQueryParams)="onTableParamsChange($event)"
+  >
+    <thead>
+    <tr>
+      <th>{{ 'NAME' | translate }}</th>
+      <th>{{ 'PRICE' | translate}}</th>
+      <th>{{ 'QUANTITY' | translate }}</th>
+      <th class="actions-head">&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (data of productsTable.data; track data.id) {
+        <tr>
+          <td>{{ data.name }}</td>
+          <td>{{ data.price }}</td>
+          <td>{{ data.quantity }}</td>
+          <td class="actions-cell">
+            <app-command
+              [context]="data"
+              [tableCommands]="tableCommands"
+              [commandPlaceHolder]="commandPlaceHolders.Table"
+            ></app-command>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+}@else {
+  <h3>{{ 'NO_DATA' | translate }}</h3>
+}

@@ -1,0 +1,31 @@
+<div class="workspace-header">
+  <h1 class="headline">{{ 'PROFILE' | translate }}</h1>
+</div>
+
+<hr class="my-4" />
+
+@if (profile()) {
+
+<app-card>
+  <div class="min-w-96">
+    <div class="flex justify-center mb-8">
+      <nz-tag class="text-lg" [nzColor]="'geekblue'" [nzBordered]="false">{{ profile()?.firstName }}</nz-tag>
+    </div>
+    <div class="grid grid-cols-3 gap-4 mb-4">
+      <span class="font-semibold">{{ 'USERNAME' | translate }}</span>
+      <span class="col-span-2">{{ profile()?.username }}</span>
+    </div>
+    <div class="grid grid-cols-3 gap-4 mb-4">
+      <span class="font-semibold"> {{ 'FIRST_NAME' | translate }} </span>
+      <span class="col-span-2">{{ profile()?.firstName }}</span>
+    </div>
+    <div class="grid grid-cols-3 gap-4 mb-4">
+      <span class="font-semibold">{{ 'LAST_NAME' | translate }}</span>
+      <span class="col-span-2">{{ profile()?.lastName }}</span>
+    </div>
+  </div>
+</app-card>
+
+}@else {
+  <h3>{{ 'NO_DATA' | translate }}</h3>
+}
